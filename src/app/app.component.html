@@ -1,4 +1,177 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div class="jumbotron text-center">
+  <h1 class="display-5">Angular Custom Validators</h1>
+</div>
+
+<div class="container">
+  <div class="row custom-wrapper">
+    <div class="col-md-12">
+      <!-- Form starts -->
+      <form [formGroup]="validatorForm" (ngSubmit)="onSubmit()">
+        <!-- Full name -->
+        <div class="mb-3">
+          <label>Name</label>
+          <input type="text" class="form-control" formControlName="name" />
+          <!-- error block -->
+        </div>
+
+        <div class="mt-3 mb-3">
+          <label for="employeename"
+            >Pan Card Number : <span class="text-danger">*</span>
+          </label>
+
+          <input
+            type="text"
+            required
+            oninput="this.value = this.value.toUpperCase()"
+            maxlength="10"
+            formControlName="panCardNo"
+            name="panCardNo"
+            class="form-control mt-2 mb-3"
+            id="employeepancard"
+            autocomplete="off"
+            [ngClass]="{
+              'is-invalid':
+                validatorForm.controls['panCardNo'].invalid &&
+                (validatorForm.controls['panCardNo'].dirty ||
+                  validatorForm.controls['panCardNo'].touched),
+              'is-valid': validatorForm.controls['panCardNo'].valid
+            }"
+          />
+
+          <!-- validation::begin -->
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Pan Card Number is Required',
+              control: validatorForm.controls['panCardNo']
+            }"
+          >
+          </ng-container>
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'pattern',
+              message: 'Invalid Pan card Details',
+              control: validatorForm.controls['panCardNo']
+            }"
+          >
+          </ng-container>
+          <!-- validation::end -->
+        </div>
+        <div class="mt-0 mb-3">
+          <label for="employeename"
+            >Aadhar Card Number: <span class="text-danger">*</span>
+          </label>
+
+          <input
+            type="number"
+            required
+            formControlName="aadharNumber"
+            name="aadharNumber"
+            class="form-control mt-2 mb-3"
+            id="employee name"
+            maxlength="12"
+            autocomplete="off"
+            [ngClass]="{
+              'is-invalid':
+                validatorForm.controls['aadharNumber'].invalid &&
+                (validatorForm.controls['aadharNumber'].dirty ||
+                  validatorForm.controls['aadharNumber'].touched),
+              'is-valid': validatorForm.controls['aadharNumber'].valid
+            }"
+          />
+
+          <!-- validation::begin -->
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Aadhar Card Number is Required',
+              control: validatorForm.controls['aadharNumber']
+            }"
+          >
+          </ng-container>
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+              validation: 'pattern',
+              message: 'Aadhar Card Number is Not valid',
+              control: validatorForm.controls['aadharNumber']
+            }"
+          >
+          </ng-container>
+          <!-- validation::end -->
+        </div>
+
+        <div class="mt-2 mb-3">
+          <p>
+            <label for="name"
+              >Gender :<span class="text-danger">*</span>
+            </label>
+            <select
+              id="gender"
+              formControlName="gender"
+              data-show-content="true"
+              name="gender"
+              class="form-control mt-2"
+              [ngClass]="{
+                'is-invalid':
+                  validatorForm.controls['gender'].invalid &&
+                  (validatorForm.controls['gender'].dirty ||
+                    validatorForm.controls['gender'].touched),
+                'is-valid': validatorForm.controls['gender'].valid
+              }"
+            >
+              <option selected value="null">Select..</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <!-- validation::begin -->
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Gender is Required',
+                control: validatorForm.controls['gender']
+              }"
+            >
+            </ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+                validation: 'gender',
+                message: 'Select a gender',
+                control: validatorForm.controls['gender']
+              }"
+            >
+            </ng-container>
+            <!-- <ng-container [class.d-none]="(!genderHasError || employmentForm?.controls.personalInfo['gender'].touched) ">
+        <small class="text-danger"> Gender is Required </small>
+      </ng-container>  -->
+            <!-- validation::end -->
+          </p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-danger btn-lg btn-block">
+          Submit
+        </button>
+      </form>
+      <!-- Form ends -->
+    </div>
+  </div>
+</div>
+
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control?.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <span class="text-danger"> {{ message }} </span>
+  </ng-container>
+</ng-template>
