@@ -14,6 +14,7 @@ export class AppComponent  {
   validatorForm = this.fb.group({
     name: ['', [Validators.required]],
     gender:[null, [Validators.required, genderValidate]],
+    eligibilityTest:[null,Validators.required],
     aadharNumber:['', [Validators.required, Validators.pattern(/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/)]],
     panCardNo:['', [Validators.required, Validators.maxLength(10),
     Validators.pattern(/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/)]],

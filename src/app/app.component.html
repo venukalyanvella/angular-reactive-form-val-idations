@@ -8,12 +8,52 @@
       <!-- Form starts -->
       <form [formGroup]="validatorForm" (ngSubmit)="onSubmit()">
         <!-- Full name -->
+        <div class="form-check form-check-inline">
+        <input name="1" 
+          class="form-check-input" type="radio" 
+          >
+         
+        <label class="form-check-label" for="13"  >Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input  name="1"  class="form-check-input" type="radio" 
+          >
+        <label class="form-check-label" for="23" >No</label>
+      </div>
         <div class="mb-3">
           <label>Name</label>
           <input type="text" class="form-control" formControlName="name" />
           <!-- error block -->
         </div>
-
+        <div class="mt-2 mb-3">
+        <label for="name" style="margin-right: 4px;" class="required">Elibility Test : </label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" formControlName="eligibilityTest"
+           type="radio"
+            id="1" name="1" value="net" />
+          <label class="form-check-label" for="inlineCheckbox1">NET
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"
+           formControlName="eligibilityTest"
+            id="2" name="1" value="slet" />
+          <label class="form-check-label" for="inlineCheckbox2">SLET</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio"
+           formControlName="eligibilityTest"
+            id="3" name="1" value="set" />
+          <label class="form-check-label" for="inlineCheckbox3">SET
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" 
+          formControlName="eligibilityTest"
+            id="4" name="1" value="other" />
+          <label class="form-check-label" for="inlineCheckbox4">Others</label>
+        </div>
+      </div>
         <div class="mt-3 mb-3">
           <label for="employeename"
             >Pan Card Number : <span class="text-danger">*</span>
