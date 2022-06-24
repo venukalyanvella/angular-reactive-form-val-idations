@@ -103,7 +103,56 @@
           </ng-container>
           <!-- validation::end -->
         </div>
+        <div class="mt-2 mb-3">
+        <p>
+          <label for="name">Mobile No :<span class="text-danger">*</span>
+          </label>
 
+          <input type="tel"   name="mobileNumber" class="form-control mt-2 mb-3" id="mobileNumber" 
+            formControlName="mobileNumber" autocomplete="off" maxlength="10" minlength="10"
+             [ngClass]="{
+              'is-invalid':
+                validatorForm
+                  .controls['mobileNumber'].invalid &&
+                (validatorForm
+                  .controls['mobileNumber'].dirty ||
+                  validatorForm
+                    .controls['mobileNumber'].touched),
+              'is-valid':
+                validatorForm
+                  .controls['mobileNumber'].valid
+            }" />
+          <!-- validation::begin -->
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Mobile Number is Required',
+            control:
+              validatorForm
+                .controls['mobileNumber']
+          }">
+        </ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'minlength' ,
+              message: 'Mobile Number must be at least 10 numbers ',
+              control:
+                validatorForm.controls[
+                  'mobileNumber'
+                ]
+            }">
+          </ng-container>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'pattern' ,
+            message: 'Mobile Number starts with 6-9 ',
+            control:
+              validatorForm.controls[
+                'mobileNumber'
+              ]
+          }">
+        </ng-container>
+          <!-- validation::end -->
+        </p>
+      </div>
         <div class="mt-2 mb-3">
           <p>
             <label for="name"
@@ -115,18 +164,13 @@
               data-show-content="true"
               name="gender"
               class="form-control mt-2"
-              [ngClass]="{
-                'is-invalid':
-                  validatorForm.controls['gender'].invalid &&
-                  (validatorForm.controls['gender'].dirty ||
-                    validatorForm.controls['gender'].touched),
-                'is-valid': validatorForm.controls['gender'].valid
-              }"
+              
             >
-              <option selected value="null">Select..</option>
+              <option  value="null">Select..</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
+           {{validatorForm.controls['gender'].valid}}
             <!-- validation::begin -->
             <ng-container
               [ngTemplateOutlet]="formError"

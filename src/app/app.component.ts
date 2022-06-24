@@ -17,10 +17,20 @@ export class AppComponent  {
     aadharNumber:['', [Validators.required, Validators.pattern(/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/)]],
     panCardNo:['', [Validators.required, Validators.maxLength(10),
     Validators.pattern(/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/)]],
+    mobileNumber: [null,[ Validators.required,
+      Validators.pattern(/[6-9]{1}[0-9]{9}/),
+      Validators.minLength(10), Validators.maxLength(10)]],
 
     
   })
- 
+  keyPress(event?:any){
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+
+  }
   // Getter method to access form control
   get name() {
     return this.validatorForm.get('name');

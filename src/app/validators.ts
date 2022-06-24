@@ -3,10 +3,15 @@ import { FormControl, Validators,ValidatorFn, AbstractControl} from '@angular/fo
 
 
 export function genderValidate(control: AbstractControl): { [key: string]: boolean } | null {
+  let val:boolean
+  console.log(control.value)
   if ( control.value ==null || control.value == 'null') {
-    return { 'gender': true };
+    val=  true
+  }else {
+    val=  false 
+
   }
- 
+return {'gender': val}
 }
 
 export function mobileValidation(control:AbstractControl):any | null
